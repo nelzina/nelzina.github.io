@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600&family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sand: '#D8D0C5',
+                        sandCard: '#EAE4DA',
+                        sandDeep: '#DFD8CC',
+                        sandBorder: '#C6BEB2',
+                        pistachio: '#C7D6C9',
+                        pistachioDeep: '#B8CABA',
+                        sage: '#3F5243',
+                        sageHover: '#314135',
+                        wood: '#24211E',
+                        woodMuted: '#4D4740',
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['"Manrope"', '"Plus Jakarta Sans"', '"Inter"', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'bento': '24px',
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 30px -10px rgba(36, 33, 30, 0.08)',
+                        'soft-hover': '0 20px 40px -15px rgba(63, 82, 67, 0.16)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #D8D0C5;
+            color: #24211E;
+            font-family: 'Manrope', 'Plus Jakarta Sans', 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .bento-card {
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease;
+        }
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(63, 82, 67, 0.16);
+        }
+        .ambient-glow {
+            background: radial-gradient(circle, rgba(184, 202, 186, 0.55) 0%, rgba(216, 208, 197, 0) 70%);
+        }
+        @keyframes pulse-sage {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.45; transform: scale(1.25); }
+        }
+        .status-dot {
+            animation: pulse-sage 2.5s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-pistachioDeep selection:text-wood relative">
+
+    <div class="fixed top-[-10%] right-[-5%] w-[520px] h-[520px] ambient-glow rounded-full pointer-events-none -z-10"></div>
+    <div class="fixed bottom-[-15%] left-[-10%] w-[620px] h-[620px] ambient-glow rounded-full pointer-events-none -z-10"></div>
+
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-wood text-sandCard px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 border border-sage/40">
+            <div class="w-6 h-6 rounded-full bg-pistachio text-sage flex items-center justify-center shrink-0">
+                <i data-lucide="check" class="w-4 h-4"></i>
+            </div>
+            <span id="toast-message" class="text-sm font-medium">Скопировано в буфер обмена</span>
+        </div>
+    </div>
+
+    <header class="max-w-5xl mx-auto px-4 sm:px-6 pt-6 pb-2">
+        <nav class="flex items-center justify-between bg-sandCard/90 backdrop-blur-md border border-sandBorder px-5 py-3 rounded-full shadow-soft">
+            <a href="#" class="flex items-center gap-2.5 group">
+                <span class="w-8 h-8 rounded-full bg-sage text-sandCard font-serif italic font-bold text-lg flex items-center justify-center transition-transform group-hover:scale-105">М</span>
+                <div class="flex flex-col sm:flex-row sm:items-center sm:gap-2">
+                    <span class="font-semibold text-sm tracking-tight text-wood">Мария Нельзина</span>
+                    <span class="hidden md:inline-flex items-center gap-1.5 text-[11px] text-woodMuted bg-sandDeep px-2.5 py-0.5 rounded-full border border-sandBorder">
+                        <span class="w-1.5 h-1.5 rounded-full bg-sage status-dot"></span>
+                        Вьетнам (UTC+7) • Гибкий график
+                    </span>
+                </div>
+            </a>
+            <div class="hidden sm:flex items-center gap-6 text-sm font-medium text-woodMuted">
+                <a href="#skills" class="hover:text-sage transition-colors">Компетенции</a>
+                <a href="#projects" class="hover:text-sage transition-colors">Проекты</a>
+                <a href="#contact" class="hover:text-sage transition-colors">Контакты</a>
+            </div>
+            <button onclick="copyHandle()" class="text-xs sm:text-sm font-semibold bg-pistachio hover:bg-sage hover:text-sandCard text-sage px-4 py-2 rounded-full transition-all duration-300 flex items-center gap-1.5 cursor-pointer border border-sage/15">
+                <span>@nelzina</span>
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-12">
+        <section class="grid grid-cols-1 md:grid-cols-12 gap-5">
+            <div class="md:col-span-8 bg-sandCard border border-sandBorder rounded-bento p-7 sm:p-10 shadow-soft bento-card flex flex-col justify-between">
+                <div>
+                    <div class="flex flex-wrap items-center gap-2.5 mb-6">
+                        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pistachio text-sage border border-sage/15 text-xs font-semibold">
+                            <span class="w-2 h-2 rounded-full bg-sage status-dot"></span>
+                            Доступна для удаленной работы • Любой часовой пояс (UTC+7)
+                        </span>
+                    </div>
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-[52px] font-semibold leading-[1.08] tracking-tight text-wood mb-4">
+                        Цифровой ассистент, <span class="italic font-normal text-sage">продюсер</span> и создатель системных решений
+                    </h1>
+                    <p class="text-woodMuted text-base sm:text-lg leading-relaxed max-w-2xl mb-8">
+                        Объединяю опыт работы помощником министра, системный документооборот, управление проектами и современный вайбкодинг. Создаю прозрачные процессы и цифровые продукты, которые экономят время и приносят результат.
+                    </p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3 pt-2">
+                    <a href="https://t.me/nelzina" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 bg-sage hover:bg-sageHover text-sandCard font-semibold text-sm px-6 py-3.5 rounded-full transition-all duration-300 shadow-sm hover:shadow">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        <span>Написать в Telegram</span>
+                    </a>
+                    <button onclick="copyHandle()" class="inline-flex items-center gap-2 bg-pistachio hover:bg-pistachioDeep text-sage border border-sage/20 font-semibold text-sm px-5 py-3.5 rounded-full transition-all duration-300 cursor-pointer">
+                        <span>Скопировать @nelzina</span>
+                        <i data-lucide="copy" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="md:col-span-4 bg-pistachio border border-sage/20 rounded-bento p-7 shadow-soft bento-card flex flex-col items-center justify-between text-center relative overflow-hidden">
+                <div class="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-sandCard/40 pointer-events-none"></div>
+                <div class="absolute -bottom-10 -left-10 w-28 h-28 rounded-full bg-sage/10 pointer-events-none"></div>
+
+                <div class="w-full flex justify-between items-center text-xs text-sage/85 font-semibold z-10">
+                    <span>NELZINA.PRO</span>
+                    <span>EST. 2024</span>
+                </div>
+
+                <div class="my-4 relative z-10 group">
+                    <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-sandCard border-4 border-sandCard/90 shadow-soft flex flex-col items-center justify-center relative overflow-hidden transition-transform duration-500 group-hover:scale-105">
+                        <span class="font-serif italic text-5xl text-sage select-none">M.</span>
+                        <span class="text-[10px] tracking-[0.22em] uppercase text-woodMuted mt-0.5 font-semibold">nelzina</span>
+                    </div>
+                    <div class="absolute -bottom-1 -right-1 bg-sage text-sandCard text-[11px] font-semibold px-3 py-1 rounded-full shadow-sm">
+                        Vibe & Order
+                    </div>
+                </div>
+
+                <div class="z-10 w-full bg-sandCard/80 backdrop-blur-sm rounded-2xl p-3.5 border border-sandBorder/80 text-left space-y-2 text-xs">
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="text-woodMuted flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-sage"></i> Локация:</span>
+                        <span class="font-semibold text-wood">Вьетнам (UTC+7)</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="text-woodMuted flex items-center gap-1.5"><i data-lucide="laptop" class="w-3.5 h-3.5 text-sage"></i> Формат:</span>
+                        <span class="font-semibold text-wood">Удаленно / Любое время</span>
+                    </div>
+                    <div class="pt-1 border-t border-sandBorder/70 text-[11px] text-woodMuted leading-snug">
+                        <strong class="text-sage font-semibold">Фокус:</strong> Поддержка, документы, AI & No-code.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 px-1">
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-sage font-bold">Экспертиза</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-wood mt-1">Компетенции и инструменты</h2>
+                </div>
+                <p class="text-sm text-woodMuted">Системный подход в сочетании с цифровым творчеством</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div class="bg-sandCard border border-sandBorder rounded-bento p-7 shadow-soft bento-card">
+                    <div class="w-12 h-12 rounded-2xl bg-pistachio text-sage border border-sage/15 flex items-center justify-center mb-5">
+                        <i data-lucide="file-check-2" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold text-wood mb-2">Деловое администрирование и документооборот</h3>
+                    <p class="text-sm text-woodMuted leading-relaxed mb-4">
+                        Опыт работы помощником министра и управления проектами. Выстраивание системного документооборота, подготовка регламентов, контроль исполнения поручений и ведение отчетности без хаоса.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs font-medium px-3 py-1 rounded-full bg-sandDeep border border-sandBorder/70 text-woodMuted">Документооборот</span>
+                        <span class="text-xs font-medium px-3 py-1 rounded-full bg-sandDeep border border-sandBorder/70 text-woodMuted">Регламенты</span>
+                        <span class="text-xs font-medium px-3 py-1 rounded-full bg-sandDeep border border-sandBorder/70 text-woodMuted">Контроль задач</span>
+                    </div>
+                </div>
+
+                <div class="bg-sandCard border border-sandBorder rounded-bento p-7 shadow-soft bento-card">
+                    <div class="w-12 h-12 rounded-2xl bg-pistachio text-sage border border-sage/15 flex items-center justify-center mb-5">
+                        <i data-lucide="message-circle-heart" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold text-wood mb-2">Клиентский сервис и обработка заявок</h3>
+                    <p class="text-sm text-woodMuted leading-relaxed mb-4">
+                        Бережная и быстрая чат-поддержка, оперативная обработка входящих заявок, ведение переписок с VIP-клиентами и партнерами, нативные продажи через заботу и экспертность.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs font-medium px-3 py-1 rounded-full bg-sandDeep border border-sandBorder/70 text-woodMuted">Чат-поддержка</span>
+                        <span class="text-xs font-medium px-3 py-1 rounded-full bg-sandDeep border border-sandBorder/70 text-woodMuted">Обработка заявок</span>
+                        <span class="text-xs font-medium px-3 py-1 rounded-full bg-sandDeep border border-sandBorder/70 text-woodMuted">Коммуникации</span>
+                    </div>
+                </div>
+
+                <div class="bg-pistachio border border-sage/20 rounded-bento p-7 shadow-soft bento-card">
+                    <div class="w-12 h-12 rounded-2xl bg-sandCard text-sage border border-sandBorder flex items-center justify-center mb-5">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold text-wood mb-2">AI-инструменты, вайбкодинг и автоматизация</h3>
+                    <p class="text-sm text-woodMuted leading-relaxed mb-4">
+                        Создание интерактивных трекеров, персональных сайтов-визиток, калькуляторов и CRM-дашбордов с помощью ИИ. Упаковка проектов на GitHub и запуск живых веб-приложений без лишних затрат.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 rounded-full bg-sandCard/90 border border-sandBorder/80 text-sage font-semibold">AI & Vibecoding</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-sandCard/90 border border-sandBorder/80 text-sage font-semibold">GitHub Pages</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-sandCard/90 border border-sandBorder/80 text-sage font-semibold">Автоматизация</span>
+                    </div>
+                </div>
+
+                <div class="bg-sandCard border border-sandBorder rounded-bento p-7 shadow-soft bento-card">
+                    <div class="w-12 h-12 rounded-2xl bg-pistachio text-sage border border-sage/15 flex items-center justify-center mb-5">
+                        <i data-lucide="layout-template" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold text-wood mb-2">Контент-продакшн и упаковка продуктов</h3>
+                    <p class="text-sm text-woodMuted leading-relaxed mb-4">
+                        Разработка авторских планеров, рабочих тетрадей (воркбуков), автоматизированных таблиц Google Sheets, PDF и визуальной упаковки проектов в эстетике софт-минимализма.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs font-medium px-3 py-1 rounded-full bg-sandDeep border border-sandBorder/70 text-woodMuted">Google Sheets</span>
+                        <span class="text-xs font-medium px-3 py-1 rounded-full bg-sandDeep border border-sandBorder/70 text-woodMuted">PDF-воркбуки</span>
+                        <span class="text-xs font-medium px-3 py-1 rounded-full bg-sandDeep border border-sandBorder/70 text-woodMuted">Брендинг</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 px-1">
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-sage font-bold">Портфолио</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-wood mt-1">Проекты и цифровые продукты</h2>
+                </div>
+                <p class="text-sm text-woodMuted">Нажмите на любую карточку, чтобы открыть детали</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+                <div onclick="openProjectModal('vibetracker')" class="md:col-span-7 bg-sandCard border border-sandBorder rounded-bento p-7 shadow-soft bento-card cursor-pointer group flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between gap-4 mb-5">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-wood text-sandCard">
+                                <i data-lucide="kanban" class="w-3.5 h-3.5 text-pistachio"></i>
+                                Web App / CRM
+                            </span>
+                            <span class="w-9 h-9 rounded-full bg-sandDeep border border-sandBorder group-hover:bg-sage group-hover:text-sandCard flex items-center justify-center transition-colors">
+                                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                            </span>
+                        </div>
+                        <h3 class="font-serif text-3xl font-semibold text-wood mb-2.5 group-hover:text-sage transition-colors">VibeTracker Suite</h3>
+                        <p class="text-sm text-woodMuted leading-relaxed mb-6">
+                            Авторская канбан-система для управления задачами, клиентами и мультивалютными финансами в глубокой темной теме с фильтрацией статусов и мгновенным сохранением данных.
+                        </p>
+                    </div>
+                    <div class="bg-[#1C1D21] rounded-2xl p-4 text-xs text-gray-300 border border-wood/20">
+                        <div class="flex items-center justify-between mb-3 pb-2 border-b border-white/10">
+                            <span class="font-medium text-white flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400"></span> VibeTracker Workspace
+                            </span>
+                            <span class="text-emerald-400 font-medium">$ 4,850 • ₽ 145,000</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2">
+                            <div class="bg-white/5 p-2 rounded-lg">
+                                <div class="text-[10px] text-gray-400 mb-1">В работе</div>
+                                <div class="h-1.5 w-4/5 bg-emerald-500/60 rounded"></div>
+                            </div>
+                            <div class="bg-white/5 p-2 rounded-lg">
+                                <div class="text-[10px] text-gray-400 mb-1">На проверке</div>
+                                <div class="h-1.5 w-3/5 bg-amber-400/60 rounded"></div>
+                            </div>
+                            <div class="bg-white/5 p-2 rounded-lg">
+                                <div class="text-[10px] text-gray-400 mb-1">Готово</div>
+                                <div class="h-1.5 w-full bg-indigo-400/60 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div onclick="openProjectModal('workbook')" class="md:col-span-5 bg-pistachio border border-sage/20 rounded-bento p-7 shadow-soft bento-card cursor-pointer group flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between gap-4 mb-5">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1.5 rounded-full bg-sandCard border border-sandBorder text-sage">
+                                <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                                Digital Product
+                            </span>
+                            <span class="w-9 h-9 rounded-full bg-sandCard border border-sandBorder group-hover:bg-sage group-hover:text-sandCard flex items-center justify-center transition-colors">
+                                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                            </span>
+                        </div>
+                        <h3 class="font-serif text-3xl font-semibold text-wood mb-2.5 group-hover:text-sage transition-colors">Executive Assistant Planner</h3>
+                        <p class="text-sm text-woodMuted leading-relaxed mb-6">
+                            Эстетичный цифровой и печатный воркбук-органайзер для руководителей и ассистентов. Объединяет умные таблицы Google Sheets и стильный PDF-органайзер.
+                        </p>
+                    </div>
+                    <div class="bg-sandCard/90 backdrop-blur-xs rounded-2xl p-4 border border-sandBorder flex items-center justify-between">
+                        <div>
+                            <div class="text-xs font-semibold text-wood">Google Sheets + PDF</div>
+                            <div class="text-[11px] text-woodMuted">Трекер поручений, встречи, финансы</div>
+                        </div>
+                        <span class="text-xs font-semibold text-sage bg-pistachio border border-sage/15 px-3 py-1 rounded-full">Обзор →</span>
+                    </div>
+                </div>
+
+                <div onclick="openProjectModal('content')" class="md:col-span-12 bg-sandCard border border-sandBorder rounded-bento p-7 shadow-soft bento-card cursor-pointer group flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                    <div class="space-y-2 max-w-2xl">
+                        <div class="flex items-center gap-2.5">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-1 rounded-full bg-pistachio border border-sage/15 text-sage">
+                                <i data-lucide="folder-check" class="w-3.5 h-3.5"></i>
+                                Operations & Service
+                            </span>
+                            <span class="text-xs text-woodMuted font-medium">Регламенты • Скрипты • Клиентский сервис</span>
+                        </div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-semibold text-wood group-hover:text-sage transition-colors">Система документооборота и поддержки</h3>
+                        <p class="text-sm text-woodMuted leading-relaxed">
+                            Стандартизация рабочих процессов, разработка регламентов, баз знаний и скриптов клиентского сервиса. Построение четкой системы контроля поручений и качественной коммуникации с клиентами.
+                        </p>
+                    </div>
+                    <div class="shrink-0 flex items-center gap-3">
+                        <span class="text-sm font-semibold text-sage group-hover:underline">Подробнее о системе</span>
+                        <span class="w-11 h-11 rounded-full bg-pistachio border border-sage/15 group-hover:bg-sage group-hover:text-sandCard text-sage flex items-center justify-center transition-colors">
+                            <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="bg-sandCard border border-sandBorder rounded-bento p-7 sm:p-10 shadow-soft">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-5 space-y-5">
+                    <span class="text-xs uppercase tracking-widest text-sage font-bold">На связи</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-wood leading-tight">
+                        Давайте обсудим вашу задачу или проект
+                    </h2>
+                    <p class="text-sm text-woodMuted leading-relaxed">
+                        Живу во Вьетнаме (часовой пояс UTC+7 / ICT), но легко адаптируюсь под любой часовой пояс и график вашей команды. Быстрее всего отвечаю в Telegram — напишите мне напрямую или оставьте заявку в форме.
+                    </p>
+
+                    <div class="space-y-3 pt-2">
+                        <a href="https://t.me/nelzina" target="_blank" rel="noopener noreferrer" class="w-full flex items-center justify-between bg-sage hover:bg-sageHover text-sandCard px-5 py-4 rounded-2xl transition-all duration-300 shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="send" class="w-5 h-5"></i>
+                                <div class="text-left">
+                                    <div class="text-sm font-semibold">Написать в Telegram</div>
+                                    <div class="text-xs text-sandCard/85">t.me/nelzina</div>
+                                </div>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 opacity-85"></i>
+                        </a>
+
+                        <button onclick="copyHandle()" class="w-full flex items-center justify-between bg-sandDeep hover:bg-pistachio text-wood px-5 py-4 rounded-2xl transition-all duration-300 cursor-pointer border border-sandBorder">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-sandCard text-sage border border-sandBorder flex items-center justify-center">
+                                    <i data-lucide="at-sign" class="w-4 h-4"></i>
+                                </div>
+                                <div class="text-left">
+                                    <div class="text-sm font-semibold">Скопировать ник</div>
+                                    <div class="text-xs text-woodMuted">@nelzina</div>
+                                </div>
+                            </div>
+                            <span class="text-xs font-semibold text-sage bg-sandCard border border-sandBorder px-3 py-1.5 rounded-full">Копировать</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-sandDeep border border-sandBorder rounded-2xl p-6 sm:p-8">
+                    <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="name" class="block text-xs font-semibold text-wood mb-1.5">Ваше имя</label>
+                                <input type="text" id="name" required placeholder="Например, Анна" class="w-full bg-sandCard border border-sandBorder focus:border-sage focus:ring-2 focus:ring-sage/20 rounded-xl px-4 py-3 text-sm text-wood placeholder:text-woodMuted/60 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label for="telegram" class="block text-xs font-semibold text-wood mb-1.5">Контакт (Telegram или Email)</label>
+                                <input type="text" id="telegram" required placeholder="@username" class="w-full bg-sandCard border border-sandBorder focus:border-sage focus:ring-2 focus:ring-sage/20 rounded-xl px-4 py-3 text-sm text-wood placeholder:text-woodMuted/60 outline-none transition-all">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="topic" class="block text-xs font-semibold text-wood mb-1.5">Формат сотрудничества</label>
+                            <select id="topic" class="w-full bg-sandCard border border-sandBorder focus:border-sage focus:ring-2 focus:ring-sage/20 rounded-xl px-4 py-3 text-sm text-wood outline-none transition-all">
+                                <option value="Ассистирование и документооборот">Бизнес-ассистирование и документооборот</option>
+                                <option value="Вайбкодинг и сайт">Создание сайта / трекера (Вайбкодинг)</option>
+                                <option value="Цифровой продукт">Заказ планера, воркбука или таблицы</option>
+                                <option value="Поддержка и контент">Клиентский сервис / контент-продакшн</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-xs font-semibold text-wood mb-1.5">Задача или вопрос</label>
+                            <textarea id="message" rows="3" required placeholder="Расскажите в двух словах, чем я могу помочь..." class="w-full bg-sandCard border border-sandBorder focus:border-sage focus:ring-2 focus:ring-sage/20 rounded-xl px-4 py-3 text-sm text-wood placeholder:text-woodMuted/60 outline-none transition-all resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-sage hover:bg-sageHover text-sandCard font-semibold text-sm py-3.5 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-sm">
+                            <span>Отправить быструю заявку</span>
+                            <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+
+                    <div id="form-success" class="hidden text-center py-8 space-y-4">
+                        <div class="w-14 h-14 rounded-full bg-pistachio text-sage border border-sage/20 flex items-center justify-center mx-auto">
+                            <i data-lucide="check-circle-2" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold text-wood">Заявка сформирована!</h3>
+                        <p class="text-sm text-woodMuted max-w-md mx-auto leading-relaxed">
+                            Спасибо! Текст вашего обращения скопирован, чтобы вы могли мгновенно отправить его мне в Telegram в один клик.
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-3 pt-2">
+                            <a id="tg-direct-link" href="https://t.me/nelzina" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-sage hover:bg-sageHover text-sandCard text-sm font-semibold px-5 py-2.5 rounded-full transition-colors">
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                                <span>Перейти в чат @nelzina</span>
+                            </a>
+                            <button onclick="resetForm()" class="text-xs font-medium text-woodMuted hover:text-wood px-4 py-2.5 underline cursor-pointer">
+                                Отправить еще раз
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-center sm:flex sm:items-center sm:justify-between text-xs text-woodMuted border-t border-sandBorder mt-6">
+        <p>© 2026 Мария Нельзина (@nelzina). Сделано с любовью к порядку и софт-минимализму.</p>
+        <p class="mt-2 sm:mt-0">Vietnam (UTC+7 / ICT) • Flexible Timezone • GitHub Pages</p>
+    </footer>
+
+    <div id="project-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-wood/55 backdrop-blur-xs transition-opacity duration-300" onclick="closeProjectModal(event)">
+        <div class="bg-sandCard border border-sandBorder rounded-bento max-w-xl w-full p-6 sm:p-8 shadow-2xl relative transform transition-all" onclick="event.stopPropagation()">
+            <button onclick="closeProjectModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-sandDeep border border-sandBorder hover:bg-pistachio text-wood flex items-center justify-center transition-colors cursor-pointer">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+
+            <span id="modal-badge" class="inline-block text-xs font-semibold px-3 py-1 rounded-full bg-pistachio text-sage border border-sage/15 mb-3">Категория</span>
+            <h3 id="modal-title" class="font-serif text-3xl font-semibold text-wood mb-3">Название проекта</h3>
+            <p id="modal-desc" class="text-sm text-woodMuted leading-relaxed mb-5">Описание проекта</p>
+
+            <div class="bg-sandDeep rounded-2xl p-4 border border-sandBorder mb-6 space-y-2.5">
+                <div class="text-xs font-bold uppercase tracking-wider text-sage">Ключевые особенности:</div>
+                <ul id="modal-features" class="space-y-2 text-sm text-wood"></ul>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <a href="https://t.me/nelzina" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-sage hover:bg-sageHover text-sandCard text-sm font-semibold px-5 py-3 rounded-full transition-colors">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                    <span>Запросить доступ / обсудить</span>
+                </a>
+                <button onclick="closeProjectModal()" class="text-sm font-medium text-woodMuted hover:text-wood px-4 py-2 cursor-pointer">
+                    Закрыть
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.textContent = message;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        function copyHandle() {
+            const textToCopy = '@nelzina';
+            const tempInput = document.createElement('input');
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999);
+            try {
+                document.execCommand('copy');
+                showToast('Ник @nelzina скопирован в буфер обмена!');
+            } catch (err) {
+                showToast('Контакт: @nelzina');
+            }
+            document.body.removeChild(tempInput);
+        }
+
+        const projectsData = {
+            vibetracker: {
+                badge: 'Web App / CRM & Finance',
+                title: 'VibeTracker Suite',
+                desc: 'Авторская канбан-система для управления задачами, клиентами и мультивалютными финансами, созданная в рамках вайбкодинга. Заменяет громоздкие корпоративные CRM легким, быстрым и эстетичным интерфейсом.',
+                features: [
+                    'Интерактивные колонки задач с мгновенным обновлением статусов',
+                    'Мультивалютный финансовый учет и подсчет бюджетов по проектам',
+                    'Эстетичная темная тема с высокой контрастностью и без визуального шума',
+                    'Автономная работа в браузере и готовность к хостингу на GitHub Pages'
+                ]
+            },
+            workbook: {
+                badge: 'Digital Product • Google Sheets + PDF',
+                title: 'Executive Assistant Planner',
+                desc: 'Эстетичный цифровой и печатный воркбук-органайзер для руководителей и ассистентов, объединяющий функциональность автоматизированных Google-таблиц и стильного PDF-органайзера.',
+                features: [
+                    'Матрица приоритетов, трекер поручений руководителя и контроль дедлайнов',
+                    'Готовые шаблоны протоколов встреч и чек-листы регулярных процессов',
+                    'Успокаивающая пастельная цветовая палитра, снижающая усталость глаз',
+                    'Адаптирован как для работы с ноутбука, так и для заметок на iPad / печати'
+                ]
+            },
+            content: {
+                badge: 'Operations & Customer Service',
+                title: 'Система документооборота и поддержки',
+                desc: 'Комплексная стандартизация рабочих процессов, регламентов и клиентского сервиса на базе опыта управления проектами и работы помощником руководителя высшего звена.',
+                features: [
+                    'Разработка понятных регламентов, чек-листов и баз знаний для команды',
+                    'Построение системы контроля поручений и прозрачного документооборота',
+                    'Внедрение стандартов бережной чат-поддержки и быстрой обработки заявок'
+                ]
+            }
+        };
+
+        function openProjectModal(projectKey) {
+            const data = projectsData[projectKey];
+            if (!data) return;
+            document.getElementById('modal-badge').textContent = data.badge;
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-desc').textContent = data.desc;
+
+            const featuresList = document.getElementById('modal-features');
+            featuresList.innerHTML = '';
+            data.features.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'flex items-start gap-2.5';
+                li.innerHTML = `
+                    <span class="w-5 h-5 rounded-full bg-pistachio text-sage flex items-center justify-center shrink-0 mt-0.5">
+                        <i data-lucide="check" class="w-3 h-3"></i>
+                    </span>
+                    <span>${item}</span>
+                `;
+                featuresList.appendChild(li);
+            });
+
+            lucide.createIcons();
+            const modal = document.getElementById('project-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            const modal = document.getElementById('project-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeProjectManager();
+        });
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const contact = document.getElementById('telegram').value.trim();
+            const topic = document.getElementById('topic').value;
+            const message = document.getElementById('message').value.trim();
+
+            const formattedText = `Привет, Маша! Меня зовут ${name} (${contact}).\nТема: ${topic}\nЗадача: ${message}`;
+            
+            const tempArea = document.createElement('textarea');
+            tempArea.value = formattedText;
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            try {
+                document.execCommand('copy');
+            } catch (err) {}
+            document.body.removeChild(tempArea);
+
+            const encodedText = encodeURIComponent(formattedText);
+            document.getElementById('tg-direct-link').href = `https://t.me/nelzina?text=${encodedText}`;
+
+            document.getElementById('contact-form').classList.add('hidden');
+            document.getElementById('form-success').classList.remove('hidden');
+            showToast('Текст заявки скопирован! Можно переходить в Telegram.');
+        }
+
+        function resetForm() {
+            document.getElementById('contact-form').reset();
+            document.getElementById('contact-form').classList.remove('hidden');
+            document.getElementById('form-success').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
