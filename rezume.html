@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Резюме — Мария Нельзина</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-page: #F7F3EE;
+      --bg-card: #FFFDFB;
+      --bg-pill: #EFE6DC;
+      --border-soft: #E5D9CC;
+      --text-main: #3E2C23;
+      --text-muted: #786255;
+      --accent-choco: #6B442E;
+      --accent-choco-hover: #523220;
+      --accent-sage: #6E8273;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.55;
+      padding: 32px 16px 56px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .toolbar {
+      max-width: 820px;
+      margin: 0 auto 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .back-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--accent-choco);
+    }
+
+    .btn-print {
+      background-color: var(--accent-choco);
+      color: #FFFDFB;
+      border: none;
+      border-radius: 999px;
+      padding: 9px 18px;
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .btn-print:hover {
+      background-color: var(--accent-choco-hover);
+    }
+
+    .resume-sheet {
+      max-width: 820px;
+      margin: 0 auto;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: 20px;
+      padding: 40px 44px;
+      box-shadow: 0 10px 30px rgba(62, 44, 35, 0.05);
+    }
+
+    /* Header */
+    .header {
+      border-bottom: 1px solid var(--border-soft);
+      padding-bottom: 22px;
+      margin-bottom: 24px;
+    }
+
+    .name-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+    }
+
+    .badge-remote {
+      background-color: var(--bg-pill);
+      color: var(--accent-choco);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-choco);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    .contacts a {
+      color: var(--text-main);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-soft);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .contacts a:hover {
+      color: var(--accent-choco);
+      border-color: var(--accent-choco);
+    }
+
+    /* Summary */
+    .summary {
+      background-color: #FAF6F1;
+      border-left: 3px solid var(--accent-choco);
+      border-radius: 0 12px 12px 0;
+      padding: 14px 18px;
+      font-size: 14.5px;
+      color: var(--text-main);
+      margin-bottom: 26px;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 24px;
+    }
+
+    .section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-choco);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background-color: var(--border-soft);
+    }
+
+    /* Skills grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .skill-card {
+      background-color: #FAF6F1;
+      border: 1px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 13.5px;
+    }
+
+    .skill-card strong {
+      display: block;
+      color: var(--text-main);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .skill-card span {
+      color: var(--text-muted);
+      display: block;
+      line-height: 1.45;
+    }
+
+    /* Experience */
+    .job {
+      margin-bottom: 18px;
+    }
+
+    .job:last-child {
+      margin-bottom: 0;
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    .job-company {
+      font-size: 15.5px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .job-period {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background-color: var(--bg-pill);
+      padding: 2px 10px;
+      border-radius: 999px;
+    }
+
+    .job-role {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent-choco);
+      margin-bottom: 8px;
+    }
+
+    .job ul {
+      padding-left: 18px;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    .job li {
+      margin-bottom: 5px;
+    }
+
+    .job li::marker {
+      color: var(--accent-choco);
+    }
+
+    /* Bottom info rows */
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .info-item strong {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .info-item span {
+      color: var(--text-muted);
+    }
+
+    .two-col-bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 680px) {
+      .resume-sheet {
+        padding: 26px 20px;
+        border-radius: 16px;
+      }
+      h1 {
+        font-size: 24px;
+      }
+      .skills-grid,
+      .two-col-bottom {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: #FFFFFF;
+        padding: 0;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+      .toolbar {
+        display: none !important;
+      }
+      .resume-sheet {
+        max-width: 100%;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+      .header {
+        padding-bottom: 12px;
+        margin-bottom: 14px;
+      }
+      .summary {
+        padding: 10px 14px;
+        margin-bottom: 14px;
+      }
+      .section {
+        margin-bottom: 14px;
+      }
+      .job {
+        margin-bottom: 12px;
+      }
+      .skill-card {
+        padding: 8px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <a class="back-link" href="https://nelzina.github.io/card.html">← Назад к визитке</a>
+    <button class="btn-print" onclick="window.print()">Сохранить в PDF / Печать</button>
+  </div>
+
+  <main class="resume-sheet">
+    <header class="header">
+      <div class="name-row">
+        <h1>Мария Нельзина</h1>
+        <span class="badge-remote">Remote • Гибкий часовой пояс</span>
+      </div>
+      <div class="subtitle">Бизнес-ассистент / Координатор проектов и документооборота</div>
+      <div class="contacts">
+        <span><strong>Телефон / WhatsApp:</strong> <a href="tel:+79994688335">+7 999 468 83 35</a></span>
+        <span><strong>Telegram:</strong> <a href="https://t.me/nelzina" target="_blank">@nelzina</a></span>
+        <span><strong>Email:</strong> <a href="mailto:masha.nelzinas@gmail.com">masha.nelzinas@gmail.com</a></span>
+        <span><strong>Визитка:</strong> <a href="https://nelzina.github.io/card.html" target="_blank">nelzina.github.io/card.html</a></span>
+        <span><strong>Локация:</strong> Вьетнам</span>
+      </div>
+    </header>
+
+    <section class="summary">
+      Специалист с 9 годами опыта в администрировании, координации процессов, системном документообороте и клиентских коммуникациях. Специализируюсь на поддержке руководителей и команд, ведении деловой переписки, обработке заявок, работе с реестрами, CRM и travel-логистикой. Высокая дисциплина, системность и конфиденциальность.
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Ключевые компетенции и стек</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <strong>График и координация</strong>
+          <span>Ведение плотного графика руководителя во внутренних системах и облачных календарях (iCloud/Exchange) с синхронизацией на команду, фильтрация запросов.</span>
+        </div>
+        <div class="skill-card">
+          <strong>Документооборот и заявки</strong>
+          <span>Регистрация, свод и учет документов, ведение реестров, обработка входящих заявок и обращений без потерь и срывов сроков.</span>
+        </div>
+        <div class="skill-card">
+          <strong>Поддержка и чаты</strong>
+          <span>Консультирование в мессенджерах и почте, решение нестандартных запросов, грамотная деловая переписка.</span>
+        </div>
+        <div class="skill-card">
+          <strong>Инструменты</strong>
+          <span>Google Workspace (Docs, Sheets, Slides), Notion, Trello, Asana, CRM/Helpdesk, Telegram, Zoom, MS Office.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Опыт работы</h2>
+
+      <article class="job">
+        <div class="job-header">
+          <div class="job-company">Министерство промышленности и торговли Красноярского края</div>
+          <div class="job-period">Март 2024 — Сент. 2026</div>
+        </div>
+        <div class="job-role">Помощник министра</div>
+        <ul>
+          <li>Администрирование графика руководителя; организация 10–15+ совещаний и встреч еженедельно с первыми лицами ведомств и бизнеса.</li>
+          <li>Обработка и систематизация 30–50+ срочных документов и обращений ежедневно, свод аналитики для управленческих решений.</li>
+          <li>Организация командировок «под ключ» (15+ поездок в год: перелеты, трансферы, проживание, протокольное сопровождение).</li>
+          <li>Контроль исполнения поручений руководителя подразделениями ведомства и ведение единого трекера задач без срывов сроков.</li>
+        </ul>
+      </article>
+
+      <article class="job">
+        <div class="job-header">
+          <div class="job-company">Министерство промышленности, энергетики и ЖКХ Красноярского края</div>
+          <div class="job-period">2019 — 2024</div>
+        </div>
+        <div class="job-role">Ведущий специалист (секретарь министра)</div>
+        <ul>
+          <li>Администрирование приемной министра и координация коммуникаций между руководством и отделами.</li>
+          <li>Системный документооборот: регистрация, маршрутизация и контроль сроков корреспонденции, ведение реестров и архивов.</li>
+          <li>Подготовка материалов к совещаниям, прием и маршрутизация обращений граждан и организаций.</li>
+        </ul>
+      </article>
+
+      <article class="job">
+        <div class="job-header">
+          <div class="job-company">ГК «АРСЕНАЛ-Недвижимость»</div>
+          <div class="job-period">2017 — 2019</div>
+        </div>
+        <div class="job-role">Офис-менеджер / Ипотечный брокер</div>
+        <ul>
+          <li>Ведение базы клиентов в CRM, сопровождение ипотечных заявок, контентное и техническое администрирование двух сайтов компании.</li>
+          <li>Взаимодействие с банками-партнерами и застройщиками, организация встреч и круглых столов, поручения руководителя.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Образование и проекты</h2>
+      <div class="info-list">
+        <div class="info-item">
+          <strong>СФУ (Юридический институт):</strong> <span>бакалавр по направлению «Международные отношения», 2012–2016 гг.</span>
+        </div>
+        <div class="info-item">
+          <strong>Медиа-мастерская «Твори-гора»:</strong> <span>обучение фотографии, видеомонтажу и созданию фотофильмов; участие в выездных проектных интенсивах с разработкой и защитой проектов в сжатые сроки.</span>
+        </div>
+        <div class="info-item">
+          <strong>Международный форум «ТИМ Бирюса»:</strong> <span>участие в юридической смене: тренинги по деловым переговорам, эффективным коммуникациям и работе с людьми.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section two-col-bottom">
+      <div>
+        <h2 class="section-title">Soft Skills</h2>
+        <div class="info-item">
+          <span>Высокая автономность, стрессоустойчивость в жестких дедлайнах, деловой этикет и дипломатия, строгая конфиденциальность.</span>
+        </div>
+      </div>
+      <div>
+        <h2 class="section-title">Языки и интересы</h2>
+        <div class="info-list">
+          <div class="info-item"><strong>Английский язык:</strong> <span>базовый (A2 — переписка по шаблонам, работа с интерфейсами).</span></div>
+          <div class="info-item"><strong>Интересы:</strong> <span>авиация, автомобили, путешествия, фото- и видеосъемка, монтаж роликов, ведение блога, психология, вокал.</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>
