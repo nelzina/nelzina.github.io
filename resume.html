@@ -73,6 +73,12 @@
             color: var(--accent);
         }
 
+        .header-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
         .btn-switch {
             display: inline-flex;
             align-items: center;
@@ -85,12 +91,26 @@
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
             transition: all 0.2s ease;
         }
 
         .btn-switch:hover {
             background: var(--accent);
             border-color: var(--accent);
+            color: #FFFFFF;
+        }
+
+        .btn-pdf {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #FFFFFF;
+        }
+
+        .btn-pdf:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
             color: #FFFFFF;
         }
 
@@ -283,6 +303,29 @@
                 padding: 20px 16px;
             }
         }
+
+        @media print {
+            body {
+                background: #FFFFFF;
+                padding: 0;
+                display: block;
+            }
+            .container {
+                max-width: 100%;
+                gap: 14px;
+            }
+            .header-actions {
+                display: none !important;
+            }
+            .card, .job-box, .mini-card, .contact-pill, .info-item, .highlight-box {
+                box-shadow: none;
+                break-inside: avoid;
+            }
+            a {
+                color: var(--text-primary);
+                text-decoration: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -294,7 +337,10 @@
                     <h1>Мария Нельзина</h1>
                     <p class="role">Бизнес-ассистент руководителя</p>
                 </div>
-                <a class="btn-switch" href="https://nelzina.github.io/card.html">← Визитка</a>
+                <div class="header-actions">
+                    <a class="btn-switch" href="https://nelzina.github.io/card.html">← Визитка</a>
+                    <button type="button" class="btn-switch btn-pdf" onclick="window.print()">Скачать PDF</button>
+                </div>
             </div>
 
             <div class="contacts-grid">
