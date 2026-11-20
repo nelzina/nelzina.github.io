@@ -8,12 +8,15 @@
         :root {
             --bg-color: #FDFBF7;
             --card-bg: #FFFFFF;
+            --soft-box: #F8F5EE;
             --text-primary: #2C2A29;
-            --text-secondary: #6B6560;
+            --text-secondary: #5E5852;
             --accent: #A38A75;
             --accent-hover: #8C735E;
-            --tag-bg: #F4F1EA;
-            --border-radius: 16px;
+            --tag-bg: #EFEAE0;
+            --border-color: #EAE3D5;
+            --radius-lg: 18px;
+            --radius-md: 12px;
         }
 
         * {
@@ -24,184 +27,153 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: 1.55;
             margin: 0;
-            padding: 40px 20px;
+            padding: 36px 18px;
             display: flex;
             justify-content: center;
         }
 
         .container {
-            max-width: 760px;
+            max-width: 780px;
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        header {
+        .card {
             background: var(--card-bg);
-            padding: 36px 40px;
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-            margin-bottom: 24px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 28px 32px;
+            box-shadow: 0 6px 24px rgba(44, 42, 41, 0.04);
         }
 
-        .top-row {
+        .header-top {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 16px;
-            margin-bottom: 16px;
+            gap: 14px;
+            margin-bottom: 14px;
         }
 
         h1 {
+            margin: 0 0 4px 0;
             font-size: 28px;
-            margin: 0 0 6px 0;
+            line-height: 1.2;
             color: var(--text-primary);
-            letter-spacing: -0.5px;
         }
 
-        .subtitle {
-            font-size: 16px;
-            color: var(--accent);
-            font-weight: 600;
+        .role {
             margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent);
         }
 
-        .btn-card {
-            display: inline-block;
-            background-color: var(--tag-bg);
+        .btn-switch {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 16px;
+            border-radius: 999px;
+            background: var(--soft-box);
+            border: 1px solid var(--border-color);
             color: var(--text-primary);
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
-            padding: 10px 18px;
-            border-radius: 999px;
-            border: 1px solid rgba(163, 138, 117, 0.3);
-            transition: background-color 0.2s, color 0.2s;
-            white-space: nowrap;
+            transition: all 0.2s ease;
         }
 
-        .btn-card:hover {
-            background-color: var(--accent);
-            color: #FFFFFF;
+        .btn-switch:hover {
+            background: var(--accent);
             border-color: var(--accent);
+            color: #FFFFFF;
         }
 
-        .meta-line {
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+            margin: 16px 0;
+        }
+
+        .contact-pill {
+            background: var(--soft-box);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 10px 14px;
             font-size: 14px;
             color: var(--text-secondary);
-            margin-bottom: 10px;
         }
 
-        .meta-line a {
-            color: var(--accent);
+        .contact-pill strong {
+            color: var(--text-primary);
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 2px;
+        }
+
+        .contact-pill a {
+            color: var(--accent-hover);
             text-decoration: none;
             font-weight: 500;
         }
 
-        .meta-line a:hover {
+        .contact-pill a:hover {
             text-decoration: underline;
         }
 
-        .about-box {
-            margin-top: 18px;
-            padding-top: 18px;
-            border-top: 1px solid var(--bg-color);
-            color: var(--text-secondary);
+        .highlight-box {
+            background: var(--soft-box);
+            border-left: 4px solid var(--accent);
+            border-radius: var(--radius-md);
+            padding: 16px 18px;
+            margin-top: 14px;
             font-size: 15px;
+            color: var(--text-secondary);
         }
 
-        .about-box strong {
+        .highlight-box strong {
             color: var(--text-primary);
-        }
-
-        section {
-            background: var(--card-bg);
-            padding: 30px 40px;
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-            margin-bottom: 24px;
         }
 
         h2 {
-            font-size: 18px;
-            margin-top: 0;
-            margin-bottom: 18px;
+            margin: 0 0 16px 0;
+            font-size: 19px;
             color: var(--text-primary);
-            border-bottom: 2px solid var(--bg-color);
-            padding-bottom: 8px;
         }
 
-        .job {
-            margin-bottom: 24px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--bg-color);
+        .mini-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 14px;
+            margin-bottom: 16px;
         }
 
-        .job:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
+        .mini-card {
+            background: var(--soft-box);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px 18px;
         }
 
-        .job-header {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: baseline;
-            gap: 8px;
-            margin-bottom: 4px;
-        }
-
-        .job-company {
-            font-size: 16px;
+        .mini-card-title {
             font-weight: 600;
+            font-size: 15px;
             color: var(--text-primary);
-        }
-
-        .job-period {
-            font-size: 13px;
-            color: var(--accent);
-            font-weight: 500;
-            background-color: var(--tag-bg);
-            padding: 3px 10px;
-            border-radius: 999px;
-        }
-
-        .job-role {
-            font-size: 14px;
-            font-style: italic;
-            color: var(--text-secondary);
-            margin-bottom: 10px;
-        }
-
-        p {
-            margin: 0 0 14px 0;
-            color: var(--text-secondary);
-            font-size: 15px;
-        }
-
-        p:last-child {
-            margin-bottom: 0;
-        }
-
-        ul {
-            margin: 0;
-            padding-left: 20px;
-            color: var(--text-secondary);
-            font-size: 15px;
-        }
-
-        li {
             margin-bottom: 8px;
         }
 
-        li:last-child {
-            margin-bottom: 0;
-        }
-
-        li strong {
-            color: var(--text-primary);
+        .mini-card p {
+            margin: 0;
+            font-size: 14px;
+            color: var(--text-secondary);
         }
 
         .tags {
@@ -212,62 +184,164 @@
         }
 
         .tag {
-            background-color: var(--tag-bg);
+            background: var(--tag-bg);
+            border: 1px solid var(--border-color);
             color: var(--text-primary);
             font-size: 13px;
-            padding: 5px 12px;
+            padding: 6px 12px;
             border-radius: 999px;
+        }
+
+        .job-box {
+            background: var(--soft-box);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+            margin-bottom: 14px;
+        }
+
+        .job-box:last-child {
+            margin-bottom: 0;
+        }
+
+        .job-top {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .job-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .job-date {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-hover);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 3px 10px;
+            border-radius: 999px;
+        }
+
+        .job-position {
+            font-size: 14px;
+            font-style: italic;
+            color: var(--accent-hover);
+            margin-bottom: 10px;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--text-secondary);
+            font-size: 14.5px;
+        }
+
+        li {
+            margin-bottom: 7px;
+        }
+
+        li:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .info-item {
+            background: var(--soft-box);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            font-size: 14.5px;
+            color: var(--text-secondary);
+        }
+
+        .info-item strong {
+            color: var(--text-primary);
         }
 
         @media (max-width: 600px) {
             body {
                 padding: 20px 12px;
             }
-            header, section {
-                padding: 24px 20px;
+            .card {
+                padding: 20px 16px;
             }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
         <!-- Шапка и О себе -->
-        <header>
-            <div class="top-row">
+        <div class="card">
+            <div class="header-top">
                 <div>
                     <h1>Мария Нельзина</h1>
-                    <p class="subtitle">Бизнес-ассистент руководителя</p>
+                    <p class="role">Бизнес-ассистент руководителя</p>
                 </div>
-                <a class="btn-card" href="https://nelzina.github.io/card.html">← Визитка</a>
+                <a class="btn-switch" href="https://nelzina.github.io/card.html">← Визитка</a>
             </div>
 
-            <div class="meta-line">
-                📍 Вьетнам (готовность работать в другом часовом поясе) · Формат: Remote
-            </div>
-            <div class="meta-line">
-                💬 Telegram: <a href="https://t.me/nelzina" target="_blank">@nelzina</a> ·
-                📱 WhatsApp / тел.: <a href="https://wa.me/79994688335" target="_blank">+7 999 468-83-35</a> ·
-                ✉️ Email: <a href="mailto:masha.nelzinas@gmail.com">masha.nelzinas@gmail.com</a>
-            </div>
-            <div class="meta-line">
-                🔗 Визитка: <a href="https://nelzina.github.io/card.html">nelzina.github.io/card.html</a> ·
-                📄 Резюме: <a href="https://nelzina.github.io/resume.html">nelzina.github.io/resume.html</a>
+            <div class="contacts-grid">
+                <div class="contact-pill">
+                    <strong>Локация и формат</strong>
+                    Вьетнам (готовность работать в другом часовом поясе) · Remote
+                </div>
+                <div class="contact-pill">
+                    <strong>Telegram</strong>
+                    <a href="https://t.me/nelzina" target="_blank">@nelzina</a>
+                </div>
+                <div class="contact-pill">
+                    <strong>WhatsApp / телефон</strong>
+                    <a href="https://wa.me/79994688335" target="_blank">+7 999 468-83-35</a>
+                </div>
+                <div class="contact-pill">
+                    <strong>Email</strong>
+                    <a href="mailto:masha.nelzinas@gmail.com">masha.nelzinas@gmail.com</a>
+                </div>
+                <div class="contact-pill">
+                    <strong>Резюме</strong>
+                    <a href="https://nelzina.github.io/resume.html">nelzina.github.io/resume.html</a>
+                </div>
+                <div class="contact-pill">
+                    <strong>Визитка</strong>
+                    <a href="https://nelzina.github.io/card.html">nelzina.github.io/card.html</a>
+                </div>
             </div>
 
-            <div class="about-box">
-                <strong>О себе:</strong> Бизнес-ассистент руководителя с 9-летним опытом администрирования, координации задач и работы с документами. Ежедневно обрабатываю 30–50+ срочных документов и обращений, еженедельно координирую 10–15+ встреч руководителя, ежедневно собираю информацию минимум к 5 совещаниям и параллельно веду сбор информации по срочным горящим задачам в течение дня (обычно около 3–5 задач в день). Управляю графиком, веду единый трекер поручений и деловую переписку, соблюдая сроки и конфиденциальность[cite: 23].
+            <div class="highlight-box">
+                <strong>О себе:</strong> Бизнес-ассистент руководителя с 9-летним опытом администрирования, координации задач и работы с документами[cite: 23]. Ежедневно обрабатываю 30–50+ срочных документов и обращений, еженедельно координирую 10–15+ встреч руководителя, ежедневно собираю информацию минимум к 5 совещаниям и параллельно веду сбор информации по срочным горящим задачам в течение дня (обычно около 3–5 задач в день)[cite: 23]. Управляю графиком, веду единый трекер поручений и деловую переписку, соблюдая сроки и конфиденциальность[cite: 23].
             </div>
-        </header>
+        </div>
 
         <!-- Ключевые компетенции & Стек -->
-        <section>
+        <div class="card">
             <h2>Ключевые компетенции и стек</h2>
-            <ul>
-                <li><strong>График и встречи:</strong> Управление плотным графиком руководителя в календарях и внутренних системах (iCloud, Exchange, Google Calendar), синхронизация встреч с командой, сбор информации минимум к 5 совещаниям ежедневно, фильтрация входящих запросов и защита времени руководителя[cite: 23].</li>
-                <li><strong>Документы и задачи:</strong> Регистрация, маршрутизация и контроль сроков документов, ведение реестров, сбор информации по срочным горящим задачам в течение дня (обычно 3–5 задач), подготовка аналитических сводок для управленческих решений и сопровождение задач в едином трекере (включая координацию задач по этапам, контроль сроков и статусов во внутреннем документообороте)[cite: 23].</li>
-                <li><strong>Коммуникации и заявки:</strong> Грамотная деловая переписка, обработка входящих заявок и обращений, консультирование в чатах и координация взаимодействия между руководством, 13 подразделениями и 6 подведомственными организациями[cite: 23].</li>
-            </ul>
+            <div class="mini-cards">
+                <div class="mini-card">
+                    <div class="mini-card-title">График и встречи</div>
+                    <p>Управление плотным графиком руководителя в календарях и внутренних системах (iCloud, Exchange, Google Calendar), синхронизация встреч с командой, сбор информации минимум к 5 совещаниям ежедневно, фильтрация входящих запросов и защита времени руководителя[cite: 23].</p>
+                </div>
+                <div class="mini-card">
+                    <div class="mini-card-title">Документы и задачи</div>
+                    <p>Регистрация, маршрутизация и контроль сроков документов, ведение реестров, сбор информации по срочным горящим задачам в течение дня (обычно 3–5 задач), подготовка аналитических сводок для управленческих решений и сопровождение задач в едином трекере (координация по этапам, контроль сроков и статусов во внутреннем документообороте)[cite: 23].</p>
+                </div>
+                <div class="mini-card">
+                    <div class="mini-card-title">Коммуникации и заявки</div>
+                    <p>Грамотная деловая переписка, обработка входящих заявок и обращений, консультирование в чатах и координация взаимодействия между руководством, 13 подразделениями и 6 подведомственными организациями[cite: 23].</p>
+                </div>
+            </div>
+
             <div class="tags">
                 <span class="tag">Google Workspace</span>
                 <span class="tag">Notion</span>
@@ -279,18 +353,18 @@
                 <span class="tag">Внутренний документооборот</span>
                 <span class="tag">iCloud / Exchange</span>
             </div>
-        </section>
+        </div>
 
         <!-- Опыт работы -->
-        <section>
+        <div class="card">
             <h2>Опыт работы</h2>
 
-            <div class="job">
-                <div class="job-header">
-                    <div class="job-company">Министерство промышленности и торговли Красноярского края</div>
-                    <div class="job-period">Март 2024 — Сент. 2026</div>
+            <div class="job-box">
+                <div class="job-top">
+                    <div class="job-title">Министерство промышленности и торговли Красноярского края</div>
+                    <div class="job-date">Март 2024 — Сент. 2026</div>
                 </div>
-                <div class="job-role">Помощник министра</div>
+                <div class="job-position">Помощник министра</div>
                 <ul>
                     <li>Координировала еженедельно 10–15+ совещаний и встреч руководителя с первыми лицами ведомств и бизнеса, согласовывая графики участников и материалы к встречам; ежедневно собирала информацию минимум к 5 совещаниям и параллельно вела сбор информации по срочным горящим задачам в течение дня (обычно около 3–5 задач в день)[cite: 23].</li>
                     <li>Обрабатывала и систематизировала 30–50+ срочных документов и обращений ежедневно, подготавливая аналитические сводки для управленческих решений[cite: 23].</li>
@@ -299,12 +373,12 @@
                 </ul>
             </div>
 
-            <div class="job">
-                <div class="job-header">
-                    <div class="job-company">Министерство промышленности, энергетики и ЖКХ Красноярского края</div>
-                    <div class="job-period">2019 — 2024 гг.</div>
+            <div class="job-box">
+                <div class="job-top">
+                    <div class="job-title">Министерство промышленности, энергетики и ЖКХ Красноярского края</div>
+                    <div class="job-date">2019 — 2024 гг.</div>
                 </div>
-                <div class="job-role">Ведущий специалист (секретарь министра)</div>
+                <div class="job-position">Ведущий специалист (секретарь министра)</div>
                 <ul>
                     <li>Администрировала работу приемной министра и координировала коммуникации между руководством, 13 подразделениями и 6 подведомственными организациями[cite: 23].</li>
                     <li>Вела системный документооборот: регистрацию, маршрутизацию и контроль сроков корреспонденции, ведение реестров и архивов[cite: 23].</li>
@@ -312,37 +386,43 @@
                 </ul>
             </div>
 
-            <div class="job">
-                <div class="job-header">
-                    <div class="job-company">ГК «АРСЕНАЛ-Недвижимость»</div>
-                    <div class="job-period">2017 — 2019 гг.</div>
+            <div class="job-box">
+                <div class="job-top">
+                    <div class="job-title">ГК «АРСЕНАЛ-Недвижимость»</div>
+                    <div class="job-date">2017 — 2019 гг.</div>
                 </div>
-                <div class="job-role">Офис-менеджер / Ипотечный брокер</div>
+                <div class="job-position">Офис-менеджер / Ипотечный брокер</div>
                 <ul>
                     <li>Вела базу клиентов в CRM, сопровождала ипотечные заявки и выполняла контентное и техническое администрирование двух сайтов компании[cite: 23].</li>
                     <li>Взаимодействовала с банками-партнерами и застройщиками, организовывала встречи и круглые столы, выполняла поручения руководителя[cite: 23].</li>
                 </ul>
             </div>
-        </section>
+        </div>
 
-        <!-- Образование и проекты -->
-        <section>
-            <h2>Образование и проекты</h2>
-            <p><strong>СФУ (Юридический институт):</strong> Бакалавр «Международные отношения», 2012–2016 гг[cite: 23].</p>
-            <ul>
-                <li><strong>Медиа-мастерская «Твори-гора»:</strong> Фото- и видеосъемка, монтаж роликов, фотофильмы, выездные проектные интенсивы[cite: 23].</li>
-                <li><strong>Международный форум «ТИМ Бирюса»:</strong> Участие в юридической смене: деловые переговоры и коммуникации[cite: 23].</li>
-            </ul>
-        </section>
-
-        <!-- Дополнительно -->
-        <section>
-            <h2>Soft skills, языки и интересы</h2>
-            <p><strong>Soft skills:</strong> Высокая автономность, стрессоустойчивость в жестких дедлайнах, деловой этикет и дипломатия, строгая конфиденциальность[cite: 23].</p>
-            <p><strong>Английский язык:</strong> Базовый (A2: переписка по шаблонам, работа с интерфейсами)[cite: 23].</p>
-            <p><strong>Интересы:</strong> Самолеты, путешествия, фото- и видеосъемка, монтаж роликов для соцсетей, ведение блога, психология, вокал[cite: 23].</p>
-        </section>
+        <!-- Образование, проекты и дополнительно -->
+        <div class="card">
+            <h2>Образование, проекты и о себе</h2>
+            <div class="info-list">
+                <div class="info-item">
+                    <strong>Образование:</strong> СФУ (Юридический институт), бакалавр «Международные отношения», 2012–2016 гг[cite: 23].
+                </div>
+                <div class="info-item">
+                    <strong>Медиа-мастерская «Твори-гора»:</strong> Фото- и видеосъемка, монтаж роликов, фотофильмы, выездные проектные интенсивы[cite: 23].
+                </div>
+                <div class="info-item">
+                    <strong>Международный форум «ТИМ Бирюса»:</strong> Участие в юридической смене: деловые переговоры и коммуникации[cite: 23].
+                </div>
+                <div class="info-item">
+                    <strong>Soft skills:</strong> Высокая автономность, стрессоустойчивость в жестких дедлайнах, деловой этикет и дипломатия, строгая конфиденциальность[cite: 23].
+                </div>
+                <div class="info-item">
+                    <strong>Английский язык:</strong> Базовый (A2: переписка по шаблонам, работа с интерфейсами)[cite: 23].
+                </div>
+                <div class="info-item">
+                    <strong>Интересы:</strong> Самолеты, путешествия, фото- и видеосъемка, монтаж роликов для соцсетей, ведение блога, психология, вокал[cite: 23].
+                </div>
+            </div>
+        </div>
     </div>
-
 </body>
 </html>
